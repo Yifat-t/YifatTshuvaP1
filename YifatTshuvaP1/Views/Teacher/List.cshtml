@@ -1,0 +1,34 @@
+﻿@model IEnumerable<YifatTshuvaP1.Models.Teacher>
+@{
+    ViewBag.Title = "List";
+}
+  
+<h2>List</h2>
+<p>This page should be showing information about all teachers</p>
+
+<div id="containerlist1">
+    <h2>List of Teachers</h2>
+    <form action="/Teacher/List" method="GET">
+    <input type="text" name="SearchKey" />
+    <input type="submit" value="Search" />
+    </form>
+    @foreach (var teacher in Model)
+    {
+        <div class="listitem row">
+            <div class="col-md-12"><a href="/Teacher/Show/@teacher.TeacherId">@teacher.TeacherFname @teacher.TeacherLname</a></div>
+        </div>
+    }
+</div>
+<div id="containerlist2">
+    <h2>Teachers salary search</h2>
+    <form action="/Teacher/List" method="GET">
+        <input type="text" name="SearchKey" />
+        <input type="submit" value="Search" />
+    </form>
+    @foreach (var teacher in Model)
+    {
+        <div class="listitem row">
+            <div class="col-md-12"><a href="/Teacher/Show/@teacher.TeacherId">@teacher.TeacherFname @teacher.TeacherLname @teacher.Salary</a></div>
+        </div>
+    }
+</div>

@@ -1,0 +1,21 @@
+﻿@model YifatTshuvaP1.Models.Teacher
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show Teacher</h2>
+
+<a class="navlink" href="/Teacher/List">Back To Teachers</a>
+<div id="containershow">
+    <h2>@Model.TeacherFname @Model.TeacherLname</h2>
+    <p>@Model.TeacherId</p>
+
+    <h2>List of Classes</h2>
+    @foreach (var classitem in @Model.ListOfClasses)
+    {
+        <div class="listitem row">
+            <div class="col-md-12"><a href="/Class/Show/@classitem.ClassId">@classitem.ClassName @classitem.ClassCode</a></div>
+        </div>
+    }
+</div>
+
