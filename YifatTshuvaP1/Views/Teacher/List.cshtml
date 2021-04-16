@@ -7,10 +7,13 @@
 <p>This page should be showing information about all teachers</p>
 
 <div id="containerlist1">
+    <nav>
+        <a class="navlink" href="/Teacher/New">New Teacher</a>
+    </nav>
     <h2>List of Teachers</h2>
     <form action="/Teacher/List" method="GET">
-    <input type="text" name="SearchKey" />
-    <input type="submit" value="Search" />
+        <input type="text" name="SearchKey" />
+        <input type="submit" value="Search" />
     </form>
     @foreach (var teacher in Model)
     {

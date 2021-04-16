@@ -14,5 +14,8 @@ namespace YifatTshuvaP1.Models
         public string StudentLname;
         public string StudentNumber;
 
+
+        
+
     }
 }

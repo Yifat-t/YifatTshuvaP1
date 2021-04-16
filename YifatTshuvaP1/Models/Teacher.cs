@@ -16,6 +16,8 @@ namespace YifatTshuvaP1.Models
         public decimal Salary;
         public DateTime HireDate;
         public IEnumerable<Class> ListOfClasses;  
+
+      //  public Teacher() { }
     
     }
 }

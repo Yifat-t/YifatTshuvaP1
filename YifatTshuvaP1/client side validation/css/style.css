@@ -1,0 +1,14 @@
+#confirmation {
+	display:none;
+	font-size:16px;
+	color:blue;
+}
+h1 {
+	text-align:center;
+}
+button:hover{
+	color:red;
+}
+body div{
+	margin:5px;
+}
