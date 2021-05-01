@@ -8,13 +8,18 @@
 
 <div id="containershow">
     <nav>
-        <a class="navlink" href="/Teacher/List">Back To Teachers</a>
+        <a class="navlink"  href="/Teacher/List">Back To Teachers</a>
         <a class="dellink" href="/Teacher/DeleteConfirm/@Model.TeacherId">Delete</a>
+        <a class="navlink"  href="/Teacher/Update/@Model.TeacherId">Update</a>
     </nav>
     <h2>@Model.TeacherFname @Model.TeacherLname</h2>
     <p>Your last updated salary is @Model.Salary</p>
     <p>Member Since @Model.HireDate.ToString("dd-MMM-yyyy")</p>
     <p>@Model.TeacherId</p>
+
+
+
+
 
     <h2>List of Classes</h2>
     @foreach (var classitem in @Model.ListOfClasses)

@@ -43,17 +43,17 @@ namespace YifatTshuvaP1.Controllers
         public ActionResult Show(int id)
         {
             TeacherDataController controller = new TeacherDataController();
-            Teacher NewTeacher = controller.FindTeacher(id);
+            Teacher SelectedTeacher = controller.FindTeacher(id);
 
-            if (NewTeacher != null)
+            if (SelectedTeacher != null)
             {
                 ClassDataController classDataController = new ClassDataController();
                 IEnumerable<Class> listOfTeacherClasses = classDataController.ListTeachersClasses(id);
 
-                NewTeacher.ListOfClasses = listOfTeacherClasses;
+                SelectedTeacher.ListOfClasses = listOfTeacherClasses;
             }
 
-            return View(NewTeacher);
+            return View(SelectedTeacher);
         }
 
 
@@ -107,6 +107,59 @@ namespace YifatTshuvaP1.Controllers
             controller.AddTeacher(NewTeacher);
 
             return RedirectToAction("List");
+        }
+
+        /// <summary>
+        /// Routes to a dynamically generated "Teacher Update" Page. Gathers information from the database.
+        /// </summary>
+        /// <param name="id">Id of the Teacher</param>
+        /// <returns>A dynamic "Update Teacher" webpage which provides the current information of the teacher and asks the user for new information as part of a form.</returns>
+        //Get : /Teacher/Update/{id} 
+        public ActionResult Update(int id)
+        {
+            TeacherDataController controller = new TeacherDataController();
+            Teacher SelectedTeacher = controller.FindTeacher(id);
+
+            return View(SelectedTeacher);
+        }
+        public ActionResult Ajax_Update(int id)
+        {
+            TeacherDataController controller = new TeacherDataController();
+            Teacher SelectedTeacher = controller.FindTeacher(id);
+
+            return View(SelectedTeacher);
+        }
+        /// <summary>
+        /// Receives a POST request containing information about an existing teacher in the system, with new values. Conveys this information to the API, and redirects to the "Teacher Show" page of our updated teacher.
+        /// </summary>
+        /// <param name="id">Id of the Teacher to update</param>
+        /// <param name="TeacherFname">The updated first name of the teacher</param>
+        /// <param name="TeacherLname">The updated last name of the teacher</param>
+        /// <param name="Salary">The updated salary of the teacher.</param>
+
+        /// <returns>A dynamic webpage which provides the current information of the teacher.</returns>
+        /// <example>
+        /// POST : /Teacher/Update/id
+        /// FORM DATA / POST DATA / REQUEST BODY 
+        /// {
+        ///	"TeacherFname":"Yifat",
+        ///	"TeacherLname":"Tshuva",
+        ///	"TeacherSalary":"123",
+        /// }
+        /// </example>
+        [HttpPost]
+        public ActionResult Update(int id, string TeacherFname, string TeacherLname,  decimal Salary)
+        {
+            Teacher TeacherInfo = new Teacher();
+            TeacherInfo.TeacherFname = TeacherFname;
+            TeacherInfo.TeacherLname = TeacherLname;
+            TeacherInfo.Salary = Salary;
+            
+
+            TeacherDataController controller = new TeacherDataController();
+            controller.UpdateTeacher(id, TeacherInfo);
+
+            return RedirectToAction("Show/" + id);
         }
     }
 }

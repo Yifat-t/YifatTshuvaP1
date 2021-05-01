@@ -109,6 +109,7 @@ namespace YifatTshuvaP1.Controllers
         /// <param name="id">The teacher primary key</param>
         /// <returns>An teacher object</returns>
         [HttpGet]
+        [EnableCors(origins: "*", methods: "*", headers: "*")]
         public Teacher FindTeacher(int id)
         {
             Teacher NewTeacher = new Teacher();
@@ -232,6 +233,50 @@ namespace YifatTshuvaP1.Controllers
             cmd.ExecuteNonQuery();
 
             Conn.Close();
+        }
+
+        /// <summary>
+        /// Updates an Teacher on the MySQL Database. Non-Deterministic.
+        /// </summary>
+        /// <param name="TeacherInfo">An object with fields that map to the columns of the teacher's table.</param>
+        /// <example>
+        /// POST api/TeacherData/UpdateTeacher/12 
+        /// FORM DATA / POST DATA / REQUEST BODY 
+        /// {
+        ///	"TeacherFname":"Yifat",
+        ///	"TeacherLname":"Tshuva",
+        ///	"Salary":"123.23",
+
+        /// }
+        /// </example>
+        [HttpPost]
+        [EnableCors(origins: "*", methods: "*", headers: "*")]
+        public void UpdateTeacher(int id, [FromBody] Teacher TeacherInfo)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = school.AccessDatabase();
+
+            //Debug.WriteLine(TeacherInfo.TeacherFname);
+
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL QUERY
+            cmd.CommandText = "update teachers set teacherfname=@TeacherFname, teacherlname=@TeacherLname, salary=@Salary  where teacherid=@TeacherId";
+            cmd.Parameters.AddWithValue("@TeacherFname", TeacherInfo.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", TeacherInfo.TeacherLname);
+            cmd.Parameters.AddWithValue("@Salary", TeacherInfo.Salary);
+            cmd.Parameters.AddWithValue("@TeacherId", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
+
         }
 
     }
